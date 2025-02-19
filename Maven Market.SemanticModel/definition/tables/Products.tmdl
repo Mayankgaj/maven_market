@@ -1,0 +1,110 @@
+table Products
+	lineageTag: d1810e24-0f15-4402-8033-aba2def904b6
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9bc79efb-1397-4e8f-a781-918d48608291
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_brand
+		dataType: string
+		lineageTag: b29472c5-6105-4968-bcb9-1f852d0febd0
+		summarizeBy: none
+		sourceColumn: product_brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: df9770bb-09f3-4e70-b2c4-46af32ac6ed6
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_sku
+		dataType: string
+		lineageTag: ef573566-5017-458f-a718-c5a10cf0c10c
+		summarizeBy: none
+		sourceColumn: product_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_retail_price
+		dataType: double
+		lineageTag: 9ef32595-c6f3-4c80-b8ce-e9ff9832e735
+		summarizeBy: sum
+		sourceColumn: product_retail_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_cost
+		dataType: double
+		lineageTag: dd86ac37-bd4a-4ee6-a91b-c25a913e24e3
+		summarizeBy: sum
+		sourceColumn: product_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_weight
+		dataType: double
+		lineageTag: 1230ba49-b10b-40cc-8055-bdd1d68228fa
+		summarizeBy: sum
+		sourceColumn: product_weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recyclable
+		dataType: double
+		lineageTag: e2653bc0-bd49-4cb6-8772-cd730d9eee94
+		summarizeBy: sum
+		sourceColumn: recyclable
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column low_fat
+		dataType: double
+		lineageTag: 54b354c6-bd0c-41f3-b41d-776cf0f62923
+		summarizeBy: sum
+		sourceColumn: low_fat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_price = ( 90 / 100 ) * Products[product_retail_price]
+		formatString: 0.00
+		lineageTag: df91eea5-d2b0-4359-9398-b182af38917c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Products = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Power BI\Maven Market\Maven+Market+CSV+Files\MavenMarket_Products.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", Int64.Type}, {"product_brand", type text}, {"product_name", type text}, {"product_sku", Int64.Type}, {"product_retail_price", type number}, {"product_cost", type number}, {"product_weight", type number}, {"recyclable", Int64.Type}, {"low_fat", Int64.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type",null,0,Replacer.ReplaceValue,{"recyclable"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",null,0,Replacer.ReplaceValue,{"low_fat"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Value1",{{"product_id", Int64.Type}, {"product_sku", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
