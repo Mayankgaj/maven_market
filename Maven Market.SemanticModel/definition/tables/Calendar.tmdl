@@ -1,0 +1,109 @@
+table Calendar
+	lineageTag: 53f45057-d3dd-49ec-a98f-84b758dbd891
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c8181573-508d-43ea-878a-3b0958fc559d
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 28bf8b7c-54a2-4cbb-ace5-4be0a8dc89ac
+			defaultHierarchy: LocalDateTable_64e578b2-abe7-48f3-a8ba-5f9b60dbeb5d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of Week'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f057c553-5cc3-4756-85b3-715546aa1f5f
+		summarizeBy: none
+		sourceColumn: Start of Week
+
+		variation Variation
+			isDefault
+			relationship: afce7d6c-c236-43b2-bb5d-011ca236cd78
+			defaultHierarchy: LocalDateTable_a614c108-a5fc-4d77-b558-9243cbb5a76f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: 6346ef9f-2dbe-47b3-a238-7d92640059b9
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Month'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 24ad2e9e-9f5a-43cc-952b-83dea0c69093
+		summarizeBy: none
+		sourceColumn: Start of Month
+
+		variation Variation
+			isDefault
+			relationship: 749c845c-310d-4858-a193-b6fb337670b6
+			defaultHierarchy: LocalDateTable_9249e621-2341-4774-aee9-0e5cff9b4e54.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 852659e1-7796-444c-b6e3-8b1f6e75f9ca
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 43c7fa48-793a-4176-9025-3fd2e5950fc7
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: e1b85554-d134-4a02-9fdb-a90c892451de
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Power BI\Maven Market\Maven+Market+CSV+Files\MavenMarket_Calendar.csv"),[Delimiter=",", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type text}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type1", {{"date", type date}}, "en-US"),
+				    #"Inserted Start of Week" = Table.AddColumn(#"Changed Type with Locale", "Start of Week", each Date.StartOfWeek([date],0
+				), type date),
+				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Start of Week", "Day Name", each Date.DayOfWeekName([Start of Week]
+				), type text),
+				    #"Inserted Start of Month" = Table.AddColumn(#"Inserted Day Name", "Start of Month", each Date.StartOfMonth([Start of Week]), type date),
+				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Start of Month", "Month Name", each Date.MonthName([Start of Week]), type text),
+				    #"Inserted Quarter" = Table.AddColumn(#"Inserted Month Name", "Quarter", each Date.QuarterOfYear([date]), Int64.Type),
+				    #"Inserted Year1" = Table.AddColumn(#"Inserted Quarter", "Year", each Date.Year([Start of Month]), Int64.Type)
+				in
+				    #"Inserted Year1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

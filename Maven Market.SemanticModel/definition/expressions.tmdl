@@ -1,0 +1,43 @@
+expression 'Sample File' =
+		let
+		    Source = Folder.Files("D:\Power BI\Maven Market\Maven+Market+CSV+Files\Transaction"),
+		    Navigation1 = Source{0}[Content]
+		in
+		    Navigation1
+	lineageTag: 1d19644b-03db-4388-b162-a410921638a3
+	queryGroup: 'Transform File from Transaction\Helper Queries'
+
+	annotation PBI_ResultType = Binary
+
+expression Parameter1 = #"Sample File" meta [IsParameterQuery=true, BinaryIdentifier=#"Sample File", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 92b3ccb9-f583-46b4-b65e-f9660812b7cc
+	queryGroup: 'Transform File from Transaction\Helper Queries'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transform Sample File' =
+		let
+		    Source = Csv.Document(Parameter1,[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+	lineageTag: 5eb24c89-5c13-46c6-a10b-dab9a3c8858c
+	queryGroup: 'Transform File from Transaction'
+
+	annotation PBI_ResultType = Table
+
+expression 'Transform File' =
+		let
+		    Source = (Parameter1) => let
+		        Source = Csv.Document(Parameter1,[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		        #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		    in
+		        #"Promoted Headers"
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transform Sample File""}" ]
+	lineageTag: 1d9463c2-e7e4-4590-9315-b9c03fc16851
+	queryGroup: 'Transform File from Transaction\Helper Queries'
+
+	annotation PBI_ResultType = Function
+

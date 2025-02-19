@@ -6,7 +6,15 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["Customers","Products","MavenMarket_Stores"]
+queryGroup 'Transform File from Transaction'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Transform File from Transaction\Helper Queries'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["Customers","Products","Stores","Regions","Calendar","Returns","Transaction_Data","Sample File","Parameter1","Transform Sample File","Transform File"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
@@ -18,9 +26,19 @@ ref table Customers
 ref table DateTableTemplate_4c2fb91f-761a-4d6b-8407-98c26a09be5a
 ref table LocalDateTable_d9116986-ccf2-45fe-80b1-55a1688212a5
 ref table Products
-ref table MavenMarket_Stores
+ref table Stores
 ref table LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531
 ref table LocalDateTable_e192dedc-9d10-4492-8e52-f70422cf9a3f
+ref table Regions
+ref table Calendar
+ref table LocalDateTable_64e578b2-abe7-48f3-a8ba-5f9b60dbeb5d
+ref table LocalDateTable_a614c108-a5fc-4d77-b558-9243cbb5a76f
+ref table LocalDateTable_9249e621-2341-4774-aee9-0e5cff9b4e54
+ref table Returns
+ref table LocalDateTable_12604bdf-c825-4bad-8722-82f681e54c13
+ref table Transaction_Data
+ref table LocalDateTable_754cb780-5e58-4553-8aec-61923ac553e2
+ref table LocalDateTable_2b56f760-b2fe-46ff-a1fb-9e92849afc02
 
 ref cultureInfo en-US
 

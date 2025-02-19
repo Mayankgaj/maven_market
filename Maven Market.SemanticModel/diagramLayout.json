@@ -38,10 +38,60 @@
             "x": 568,
             "y": 0
           },
-          "nodeIndex": "MavenMarket_Stores",
-          "nodeLineageTag": "a17fb22a-d630-4be0-95f3-b9f27e4020b9",
+          "nodeIndex": "Stores",
           "size": {
             "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 74
+          },
+          "nodeIndex": "Regions",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 26
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "53f45057-d3dd-49ec-a98f-84b758dbd891",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 62
+          },
+          "nodeIndex": "Returns",
+          "nodeLineageTag": "ff37e74e-ce6d-4d64-b365-a5dbce8eeceb",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1704,
+            "y": 26
+          },
+          "nodeIndex": "Transaction_Data",
+          "nodeLineageTag": "a9b6dcec-363c-43f4-b5d0-d0f362222dbc",
+          "size": {
+            "height": 248,
             "width": 234
           },
           "zIndex": 0

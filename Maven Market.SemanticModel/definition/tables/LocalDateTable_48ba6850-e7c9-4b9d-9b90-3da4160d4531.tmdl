@@ -110,7 +110,7 @@ table LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531
 
 	partition LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531 = calculated
 		mode: import
-		source = Calendar(Date(Year(MIN('MavenMarket_Stores'[first_opened_date])), 1, 1), Date(Year(MAX('MavenMarket_Stores'[first_opened_date])), 12, 31))
+		source = Calendar(Date(Year(MIN('Stores'[first_opened_date])), 1, 1), Date(Year(MAX('Stores'[first_opened_date])), 12, 31))
 
 	annotation __PBI_LocalDateTable = true
 

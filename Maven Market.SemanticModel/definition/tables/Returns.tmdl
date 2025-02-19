@@ -1,0 +1,61 @@
+table Returns
+	lineageTag: ff37e74e-ce6d-4d64-b365-a5dbce8eeceb
+
+	column return_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8c0ce932-8c9f-437d-a549-13b91f5a989e
+		summarizeBy: none
+		sourceColumn: return_date
+
+		variation Variation
+			isDefault
+			relationship: 4c61d67a-f97f-4231-9d40-8c76a13c4893
+			defaultHierarchy: LocalDateTable_12604bdf-c825-4bad-8722-82f681e54c13.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d8de9342-4d7e-437f-8aa2-ced6d84e7755
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 33f720f4-dc78-48ca-bf29-33577ea007e5
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 28293850-1f31-4d1d-9ffa-56587774aa2f
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Returns = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Power BI\Maven Market\Maven+Market+CSV+Files\MavenMarket_Returns_1997-1998.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"return_date", type text}, {"product_id", Int64.Type}, {"store_id", Int64.Type}, {"quantity", Int64.Type}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"return_date", type date}}, "en-US")
+				in
+				    #"Changed Type with Locale"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,98 @@
+table Transaction_Data
+	lineageTag: a9b6dcec-363c-43f4-b5d0-d0f362222dbc
+
+	column 'Source.Name'
+		dataType: string
+		lineageTag: 39804b6d-5a4c-4bbc-9b09-215360cb19f3
+		summarizeBy: none
+		sourceColumn: Source.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 36c6d2ab-be3e-4b15-bfd0-686cd2990d9d
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		variation Variation
+			isDefault
+			relationship: 40f6627b-a0a5-4ea5-bb5b-6faa1c8e5b4c
+			defaultHierarchy: LocalDateTable_754cb780-5e58-4553-8aec-61923ac553e2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column stock_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 61e531f3-dfa3-4fb7-ab4e-32d5725f21cd
+		summarizeBy: none
+		sourceColumn: stock_date
+
+		variation Variation
+			isDefault
+			relationship: 3bdf0e31-416b-4bf0-b454-2d4b9b79dcd4
+			defaultHierarchy: LocalDateTable_2b56f760-b2fe-46ff-a1fb-9e92849afc02.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column product_id
+		dataType: string
+		lineageTag: ca5665c9-3f60-4e74-a7f1-4dd94ed01e3e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 40f20a00-d0d8-4b30-be06-65a6ad9a05e4
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bda7f7ec-2911-4adf-a9b5-bca2ac5018de
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 99faa8a5-0959-4e51-a979-59d68e126806
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Transaction_Data = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("D:\Power BI\Maven Market\Maven+Market+CSV+Files\Transaction"),
+				    #"Filtered Hidden Files1" = Table.SelectRows(Source, each [Attributes]?[Hidden]? <> true),
+				    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File", each #"Transform File"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File", Table.ColumnNames(#"Transform File"(#"Sample File"))),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Expanded Table Column1", {{"transaction_date", type date}}, "en-US"),
+				    #"Changed Type with Locale1" = Table.TransformColumnTypes(#"Changed Type with Locale", {{"stock_date", type date}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed Type with Locale1",{{"store_id", Int64.Type}, {"quantity", Int64.Type}, {"customer_id", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

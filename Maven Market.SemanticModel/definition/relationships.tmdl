@@ -5,11 +5,41 @@ relationship 8820dbfa-431f-4859-9944-6d5f7fd023ec
 
 relationship 3c5e3e1a-cc24-4e22-bcdb-3ae47d59ba26
 	joinOnDateBehavior: datePartOnly
-	fromColumn: MavenMarket_Stores.first_opened_date
+	fromColumn: Stores.first_opened_date
 	toColumn: LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531.Date
 
 relationship a90adbf5-36c3-4e1e-9296-52523744cb47
 	joinOnDateBehavior: datePartOnly
-	fromColumn: MavenMarket_Stores.last_remodel_date
+	fromColumn: Stores.last_remodel_date
 	toColumn: LocalDateTable_e192dedc-9d10-4492-8e52-f70422cf9a3f.Date
+
+relationship 28bf8b7c-54a2-4cbb-ace5-4be0a8dc89ac
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.date
+	toColumn: LocalDateTable_64e578b2-abe7-48f3-a8ba-5f9b60dbeb5d.Date
+
+relationship afce7d6c-c236-43b2-bb5d-011ca236cd78
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.'Start of Week'
+	toColumn: LocalDateTable_a614c108-a5fc-4d77-b558-9243cbb5a76f.Date
+
+relationship 749c845c-310d-4858-a193-b6fb337670b6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.'Start of Month'
+	toColumn: LocalDateTable_9249e621-2341-4774-aee9-0e5cff9b4e54.Date
+
+relationship 4c61d67a-f97f-4231-9d40-8c76a13c4893
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Returns.return_date
+	toColumn: LocalDateTable_12604bdf-c825-4bad-8722-82f681e54c13.Date
+
+relationship 40f6627b-a0a5-4ea5-bb5b-6faa1c8e5b4c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Transaction_Data.transaction_date
+	toColumn: LocalDateTable_754cb780-5e58-4553-8aec-61923ac553e2.Date
+
+relationship 3bdf0e31-416b-4bf0-b454-2d4b9b79dcd4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Transaction_Data.stock_date
+	toColumn: LocalDateTable_2b56f760-b2fe-46ff-a1fb-9e92849afc02.Date
 

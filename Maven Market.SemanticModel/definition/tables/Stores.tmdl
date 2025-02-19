@@ -1,4 +1,4 @@
-table MavenMarket_Stores
+table Stores
 	lineageTag: a17fb22a-d630-4be0-95f3-b9f27e4020b9
 
 	column store_id
@@ -141,7 +141,7 @@ table MavenMarket_Stores
 
 		annotation SummarizationSetBy = Automatic
 
-	partition MavenMarket_Stores = m
+	partition Stores = m
 		mode: import
 		source =
 				let
@@ -154,6 +154,8 @@ table MavenMarket_Stores
 				    #"Added area_code" = Table.AddColumn(#"Inserted Merged Column", "area_code", each Text.BeforeDelimiter([store_phone], "-"))
 				in
 				    #"Added area_code"
+
+	changedProperty = Name
 
 	annotation PBI_NavigationStepName = Navigation
 
