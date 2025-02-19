@@ -1,0 +1,161 @@
+table MavenMarket_Stores
+	lineageTag: a17fb22a-d630-4be0-95f3-b9f27e4020b9
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ced566e4-9b80-40ad-a1a3-39882dc02bcd
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a7458e0-1ef0-4d55-ad1e-145d2130a416
+		summarizeBy: sum
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_type
+		dataType: string
+		lineageTag: 0c71794d-d1ee-413c-9346-ba6c8db6a024
+		summarizeBy: none
+		sourceColumn: store_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: d206e06e-c6dd-4abb-a562-4387d9d387a2
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_street_address
+		dataType: string
+		lineageTag: 06d9b5f2-71ab-4946-9854-b763bfaa45c3
+		summarizeBy: none
+		sourceColumn: store_street_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_city
+		dataType: string
+		lineageTag: cac76158-5b48-4cbe-a197-88e21dcc716f
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_state
+		dataType: string
+		lineageTag: 795f04ae-82f1-44a4-a60e-3ec6fba8ba82
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_country
+		dataType: string
+		lineageTag: d035a858-c466-4f8d-9fef-7b89cc740687
+		summarizeBy: none
+		sourceColumn: store_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_phone
+		dataType: string
+		lineageTag: 9bbe44bc-8394-48dc-9036-7e484c5d98c5
+		summarizeBy: none
+		sourceColumn: store_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_opened_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b9eeaae0-8329-4097-984e-b1f149017012
+		summarizeBy: none
+		sourceColumn: first_opened_date
+
+		variation Variation
+			isDefault
+			relationship: 3c5e3e1a-cc24-4e22-bcdb-3ae47d59ba26
+			defaultHierarchy: LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_remodel_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 505fe6d2-cebd-4ead-9415-41acb7806520
+		summarizeBy: none
+		sourceColumn: last_remodel_date
+
+		variation Variation
+			isDefault
+			relationship: a90adbf5-36c3-4e1e-9296-52523744cb47
+			defaultHierarchy: LocalDateTable_e192dedc-9d10-4492-8e52-f70422cf9a3f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column total_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ee05dd3-f5f8-409a-a3a4-3a9f98ae22f0
+		summarizeBy: sum
+		sourceColumn: total_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column grocery_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e92d5e9-d97f-4075-a254-b1193902167f
+		summarizeBy: sum
+		sourceColumn: grocery_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_address
+		dataType: string
+		lineageTag: ff640788-2830-487d-8726-083c9d9f17ba
+		summarizeBy: none
+		sourceColumn: full_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_code
+		dataType: string
+		lineageTag: 172b7bea-c998-473d-afb1-cb504eb42a3d
+		summarizeBy: none
+		sourceColumn: area_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MavenMarket_Stores = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Power BI\Maven Market\Maven+Market+CSV+Files\MavenMarket_Stores.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"store_id", Int64.Type}, {"region_id", Int64.Type}, {"store_type", type text}, {"store_name", type text}, {"store_street_address", type text}, {"store_city", type text}, {"store_state", type text}, {"store_country", type text}, {"store_phone", type text}, {"first_opened_date", type text}, {"last_remodel_date", type text}, {"total_sqft", Int64.Type}, {"grocery_sqft", Int64.Type}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"first_opened_date", type date}}, "en-US"),
+				    #"Changed Type with Locale1" = Table.TransformColumnTypes(#"Changed Type with Locale", {{"last_remodel_date", type date}}, "en-US"),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type with Locale1", "full_address", each Text.Combine({[store_city], [store_state], [store_country]}, ", "), type text),
+				    #"Added area_code" = Table.AddColumn(#"Inserted Merged Column", "area_code", each Text.BeforeDelimiter([store_phone], "-"))
+				in
+				    #"Added area_code"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

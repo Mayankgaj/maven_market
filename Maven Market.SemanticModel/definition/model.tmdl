@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["Customers","Products"]
+annotation PBI_QueryOrder = ["Customers","Products","MavenMarket_Stores"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
@@ -18,6 +18,9 @@ ref table Customers
 ref table DateTableTemplate_4c2fb91f-761a-4d6b-8407-98c26a09be5a
 ref table LocalDateTable_d9116986-ccf2-45fe-80b1-55a1688212a5
 ref table Products
+ref table MavenMarket_Stores
+ref table LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531
+ref table LocalDateTable_e192dedc-9d10-4492-8e52-f70422cf9a3f
 
 ref cultureInfo en-US
 

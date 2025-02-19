@@ -3,3 +3,13 @@ relationship 8820dbfa-431f-4859-9944-6d5f7fd023ec
 	fromColumn: Customers.birthdate
 	toColumn: LocalDateTable_d9116986-ccf2-45fe-80b1-55a1688212a5.Date
 
+relationship 3c5e3e1a-cc24-4e22-bcdb-3ae47d59ba26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: MavenMarket_Stores.first_opened_date
+	toColumn: LocalDateTable_48ba6850-e7c9-4b9d-9b90-3da4160d4531.Date
+
+relationship a90adbf5-36c3-4e1e-9296-52523744cb47
+	joinOnDateBehavior: datePartOnly
+	fromColumn: MavenMarket_Stores.last_remodel_date
+	toColumn: LocalDateTable_e192dedc-9d10-4492-8e52-f70422cf9a3f.Date
+
