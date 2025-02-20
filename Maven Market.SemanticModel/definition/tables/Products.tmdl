@@ -38,23 +38,21 @@ table Products
 
 	column product_retail_price
 		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 9ef32595-c6f3-4c80-b8ce-e9ff9832e735
 		summarizeBy: sum
 		sourceColumn: product_retail_price
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column product_cost
 		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: dd86ac37-bd4a-4ee6-a91b-c25a913e24e3
 		summarizeBy: sum
 		sourceColumn: product_cost
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column product_weight
 		dataType: double
@@ -87,7 +85,7 @@ table Products
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column discount_price = ( 90 / 100 ) * Products[product_retail_price]
-		formatString: 0.00
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: df91eea5-d2b0-4359-9398-b182af38917c
 		summarizeBy: sum
 

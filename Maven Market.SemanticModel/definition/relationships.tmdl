@@ -65,3 +65,8 @@ relationship 62a852e1-e919-a817-cb5a-89aa91ace5c8
 	fromColumn: Returns.return_date
 	toColumn: Calendar.date
 
+relationship 3c3a9e09-3213-4931-9cc0-cdae5a81eff0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Customers.acct_open_date
+	toColumn: LocalDateTable_c1a9a73a-baf1-4772-8742-d10d34973fd0.Date
+

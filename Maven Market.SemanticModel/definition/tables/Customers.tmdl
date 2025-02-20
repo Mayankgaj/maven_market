@@ -142,12 +142,22 @@ table Customers
 		annotation SummarizationSetBy = Automatic
 
 	column acct_open_date
-		dataType: string
+		dataType: dateTime
+		formatString: Long Date
 		lineageTag: 3b548e32-b076-4196-a1ff-f6b23a93ee3a
 		summarizeBy: none
 		sourceColumn: acct_open_date
 
+		variation Variation
+			isDefault
+			relationship: 3c3a9e09-3213-4931-9cc0-cdae5a81eff0
+			defaultHierarchy: LocalDateTable_c1a9a73a-baf1-4772-8742-d10d34973fd0.'Date Hierarchy'
+
+		changedProperty = DataType
+
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column member_card
 		dataType: string
@@ -209,9 +219,10 @@ table Customers
 				    #"Changes Date Format to USA" = Table.TransformColumnTypes(#"Renamed Columns", {{"birthdate", type date}}, "en-US"),
 				    #"Added Birth Year Column" = Table.AddColumn(#"Changes Date Format to USA", "birth_year", each 
 				Date.Year([birthdate])),
-				    #"Added has_children Column" = Table.AddColumn(#"Added Birth Year Column", "has_children", each if [total_children] > 0 then "Y" else "N")
+				    #"Added has_children Column" = Table.AddColumn(#"Added Birth Year Column", "has_children", each if [total_children] > 0 then "Y" else "N"),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Added has_children Column", {{"acct_open_date", type date}}, "en-US")
 				in
-				    #"Added has_children Column"
+				    #"Changed Type with Locale"
 				```
 
 	annotation PBI_NavigationStepName = Navigation
