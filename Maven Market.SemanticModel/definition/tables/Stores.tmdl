@@ -5,17 +5,20 @@ table Stores
 		dataType: int64
 		formatString: 0
 		lineageTag: ced566e4-9b80-40ad-a1a3-39882dc02bcd
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: store_id
 
 		annotation SummarizationSetBy = Automatic
 
 	column region_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 4a7458e0-1ef0-4d55-ad1e-145d2130a416
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: region_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

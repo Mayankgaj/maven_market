@@ -5,8 +5,10 @@ table Products
 		dataType: int64
 		formatString: 0
 		lineageTag: 9bc79efb-1397-4e8f-a781-918d48608291
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

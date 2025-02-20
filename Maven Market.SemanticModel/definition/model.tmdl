@@ -35,10 +35,7 @@ ref table LocalDateTable_64e578b2-abe7-48f3-a8ba-5f9b60dbeb5d
 ref table LocalDateTable_a614c108-a5fc-4d77-b558-9243cbb5a76f
 ref table LocalDateTable_9249e621-2341-4774-aee9-0e5cff9b4e54
 ref table Returns
-ref table LocalDateTable_12604bdf-c825-4bad-8722-82f681e54c13
 ref table Transaction_Data
-ref table LocalDateTable_754cb780-5e58-4553-8aec-61923ac553e2
-ref table LocalDateTable_2b56f760-b2fe-46ff-a1fb-9e92849afc02
 
 ref cultureInfo en-US
 

@@ -8,30 +8,31 @@ table Returns
 		summarizeBy: none
 		sourceColumn: return_date
 
-		variation Variation
-			isDefault
-			relationship: 4c61d67a-f97f-4231-9d40-8c76a13c4893
-			defaultHierarchy: LocalDateTable_12604bdf-c825-4bad-8722-82f681e54c13.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
 
 	column product_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: d8de9342-4d7e-437f-8aa2-ced6d84e7755
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column store_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 33f720f4-dc78-48ca-bf29-33577ea007e5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: store_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

@@ -5,7 +5,7 @@ table Regions
 		dataType: int64
 		formatString: 0
 		lineageTag: 0f899ac1-3955-4bbd-be01-b17b0c1dfd47
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: region_id
 
 		annotation SummarizationSetBy = Automatic
