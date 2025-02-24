@@ -49,6 +49,7 @@ table Stores
 	column store_city
 		dataType: string
 		lineageTag: cac76158-5b48-4cbe-a197-88e21dcc716f
+		dataCategory: City
 		summarizeBy: none
 		sourceColumn: store_city
 
@@ -57,6 +58,7 @@ table Stores
 	column store_state
 		dataType: string
 		lineageTag: 795f04ae-82f1-44a4-a60e-3ec6fba8ba82
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: store_state
 
@@ -65,6 +67,7 @@ table Stores
 	column store_country
 		dataType: string
 		lineageTag: d035a858-c466-4f8d-9fef-7b89cc740687
+		dataCategory: County
 		summarizeBy: none
 		sourceColumn: store_country
 
@@ -131,6 +134,7 @@ table Stores
 	column full_address
 		dataType: string
 		lineageTag: ff640788-2830-487d-8726-083c9d9f17ba
+		dataCategory: Address
 		summarizeBy: none
 		sourceColumn: full_address
 
@@ -141,6 +145,13 @@ table Stores
 		lineageTag: 172b7bea-c998-473d-afb1-cb504eb42a3d
 		summarizeBy: none
 		sourceColumn: area_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Years_Since_Remodel = DATEDIFF(Stores[last_remodel_date],TODAY(),YEAR)
+		formatString: 0
+		lineageTag: 80bd6087-b7b0-4cee-9bce-4bcb124dc97b
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 

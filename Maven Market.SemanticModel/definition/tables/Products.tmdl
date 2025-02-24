@@ -91,6 +91,19 @@ table Products
 
 		annotation SummarizationSetBy = Automatic
 
+	column Price_Tier = ```
+			SWITCH(
+			    TRUE(),
+			    Products[product_retail_price] > 3, "High",
+			    Products[product_retail_price] > 1, "Mid",
+			    "Low"
+			) 
+			```
+		lineageTag: 34fea96b-9877-4401-9524-ba92a5d4cd8a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Products = m
 		mode: import
 		source =

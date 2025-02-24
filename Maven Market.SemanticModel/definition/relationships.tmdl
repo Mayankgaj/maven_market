@@ -70,3 +70,8 @@ relationship 3c3a9e09-3213-4931-9cc0-cdae5a81eff0
 	fromColumn: Customers.acct_open_date
 	toColumn: LocalDateTable_c1a9a73a-baf1-4772-8742-d10d34973fd0.Date
 
+relationship c05fe140-545b-4e1b-bc03-5f2b9b25bf61
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.'End of Month'
+	toColumn: LocalDateTable_0e7f1069-eb83-476c-a125-c58d568ede27.Date
+

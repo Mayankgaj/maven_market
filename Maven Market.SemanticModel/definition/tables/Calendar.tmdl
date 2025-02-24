@@ -83,6 +83,33 @@ table Calendar
 
 		annotation SummarizationSetBy = Automatic
 
+	column Weekend =
+			IF(
+			    WEEKDAY('Calendar'[date]) = 1 || WEEKDAY('Calendar'[date]) = 7,"Y","N"
+			)
+		lineageTag: 3bab0e86-78c2-4bfe-9ece-e8603e5d753d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Month' = ENDOFMONTH('Calendar'[date])
+		formatString: dd-mm-yyyy
+		lineageTag: 0e99961e-d2b4-4188-9b25-044e645e476c
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: c05fe140-545b-4e1b-bc03-5f2b9b25bf61
+			defaultHierarchy: LocalDateTable_0e7f1069-eb83-476c-a125-c58d568ede27.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
 	partition Calendar = m
 		mode: import
 		source =
