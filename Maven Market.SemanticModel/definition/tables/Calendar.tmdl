@@ -121,12 +121,12 @@ table Calendar
 				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type1", {{"date", type date}}, "en-US"),
 				    #"Inserted Start of Week" = Table.AddColumn(#"Changed Type with Locale", "Start of Week", each Date.StartOfWeek([date],0
 				), type date),
-				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Start of Week", "Day Name", each Date.DayOfWeekName([Start of Week]
+				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Start of Week", "Day Name", each Date.DayOfWeekName([date]
 				), type text),
 				    #"Inserted Start of Month" = Table.AddColumn(#"Inserted Day Name", "Start of Month", each Date.StartOfMonth([Start of Week]), type date),
 				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Start of Month", "Month Name", each Date.MonthName([Start of Week]), type text),
 				    #"Inserted Quarter" = Table.AddColumn(#"Inserted Month Name", "Quarter", each Date.QuarterOfYear([date]), Int64.Type),
-				    #"Inserted Year1" = Table.AddColumn(#"Inserted Quarter", "Year", each Date.Year([Start of Month]), Int64.Type)
+				    #"Inserted Year1" = Table.AddColumn(#"Inserted Quarter", "Year", each Date.Year([date]), Int64.Type)
 				in
 				    #"Inserted Year1"
 

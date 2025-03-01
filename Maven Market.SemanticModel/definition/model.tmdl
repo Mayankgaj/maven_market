@@ -14,7 +14,7 @@ queryGroup 'Transform File from Transaction\Helper Queries'
 
 	annotation PBI_QueryGroupOrder = 0
 
-annotation PBI_QueryOrder = ["Customers","Products","Stores","Regions","Calendar","Returns","Transaction_Data","Sample File","Parameter1","Transform Sample File","Transform File"]
+annotation PBI_QueryOrder = ["Customers","Products","Stores","Regions","Calendar","Returns","Transaction_Data","Sample File","Parameter1","Transform Sample File","Transform File","Measure"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
@@ -38,6 +38,7 @@ ref table Returns
 ref table Transaction_Data
 ref table LocalDateTable_c1a9a73a-baf1-4772-8742-d10d34973fd0
 ref table LocalDateTable_0e7f1069-eb83-476c-a125-c58d568ede27
+ref table Measure
 
 ref cultureInfo en-US
 

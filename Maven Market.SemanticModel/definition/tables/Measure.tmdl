@@ -1,0 +1,115 @@
+table Measure
+	lineageTag: 019fe1a4-866c-47f5-b5cc-bcf45b32beea
+
+	measure 'Quantity Sold' =
+			CALCULATE(
+			    SUM(Transaction_Data[quantity])
+			)
+		formatString: 0
+		lineageTag: b5983aa7-a0dd-41ee-817f-0c47e4267db8
+
+	measure 'Quantity Returned' =
+			CALCULATE(
+			    SUM(Returns[quantity]
+			))
+		formatString: 0
+		lineageTag: 8c6b850f-6ea1-4251-b191-bc9c8d34eea3
+
+	measure 'Total Transactions' =
+			CALCULATE(
+			    COUNT(Transaction_Data[customer_id])
+			)
+		formatString: 0
+		lineageTag: b9b5a8a1-0cda-46aa-8672-12b5a16d1bbe
+
+	measure 'Total Returns' =
+			CALCULATE(
+			    COUNT(Returns[product_id])
+			)
+		formatString: 0
+		lineageTag: d4b2173e-f698-4b38-855e-839461c20a54
+
+	measure 'Return Rate' = [Quantity Returned] / [Quantity Sold]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0d795c07-3dea-4236-83e2-d46f13366ac7
+
+	measure 'Weekend Transactions' = ```
+			CALCULATE(
+			    [Total Transactions], 
+			    'Calendar'[Weekend] = "Y"
+			)
+			```
+		formatString: 0
+		lineageTag: 8f0d2ee4-46aa-48e5-bfc5-9bb38c3927bf
+
+	measure '% Weekend Transactions' = [Weekend Transactions] / COUNT(Transaction_Data[customer_id])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d51f6643-3a89-4b30-8c60-10036a70b8c5
+
+	measure 'All Transactions' =
+			CALCULATE(
+			    COUNT(Transaction_Data[customer_id]),ALL(Transaction_Data)
+			)
+		formatString: 0
+		lineageTag: 5a8410ab-bdc2-4e26-b55c-3643e74e85aa
+
+	measure 'All Returns' =
+			CALCULATE(
+			    COUNT(Returns[product_id]),ALL(Returns)
+			)
+		formatString: 0
+		lineageTag: 2e9a8c21-4ab2-4e2a-a19f-795365b5c20a
+
+	measure 'Total Revenue' =
+			SUMX(
+			    Transaction_Data,Transaction_Data[quantity] * RELATED(Products[product_retail_price])
+			)
+		formatString: #,0
+		lineageTag: fc2030e2-db2a-4428-b529-ebad7c984052
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Total Cost' =
+			CALCULATE(
+			    SUMX(Transaction_Data, Transaction_Data[quantity] * RELATED(Products[product_cost]))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: d41b8021-742b-40f7-8c61-1e6ddafd7f8d
+
+	measure 'Total Profit' = [Total Revenue] - [Total Cost]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 76b06d16-ad4d-435b-b9f9-df11a4326cf6
+
+	measure 'Profit Margin' = [Total Profit] / [Total Revenue]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8d592b88-2d0c-48b3-a4ed-46ae2c5543af
+
+	measure 'Unique Products' =
+			CALCULATE(
+			    DISTINCTCOUNT(Products[product_id])
+			)
+		formatString: 0
+		lineageTag: 8a8b520e-e10b-4133-9074-e5401f1aa72f
+
+	measure 'YTD Revenue' =
+			TOTALYTD(
+			    [Total Revenue],'Calendar'[date]
+			)
+		lineageTag: e2446d7f-e38f-4087-afd9-c1083b97785c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
