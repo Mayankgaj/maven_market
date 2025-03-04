@@ -99,6 +99,60 @@ table Measure
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure '60-Day Revenue' = ```
+			CALCULATE(
+			    [Total Revenue], 
+			    DATESINPERIOD('Calendar'[date], MAX('Calendar'[date]),-60,DAY)
+			    )
+			```
+		lineageTag: 8ae7c987-f64d-44a4-9bf2-a429ec68a7a2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Month Transactions' =
+			CALCULATE(
+			    COUNT(Transaction_Data[customer_id]),
+			    PREVIOUSMONTH('Calendar'[date])
+			)
+		formatString: 0
+		lineageTag: c80b063d-956d-4a27-a852-f39513407ebb
+
+	measure 'Last Month Revenue' =
+			CALCULATE(
+			    [Total Revenue],
+			    PREVIOUSMONTH('Calendar'[date])
+			)
+		lineageTag: 54381215-33a9-4232-a1bc-f1e5eaf8950a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Month Returns' =
+			CALCULATE(
+			    [Total Returns],
+			    PREVIOUSMONTH('Calendar'[date])
+			)
+		formatString: 0
+		lineageTag: 668fa8ee-4682-4a7f-9483-6b3eaef44ff8
+
+	measure 'Last Month Profit' =
+			CALCULATE(
+			    [Total Profit],
+			    PREVIOUSMONTH('Calendar'[date])
+			)
+		lineageTag: d8af2073-8740-41de-9e6b-bae3c98a329d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Target' =
+			CALCULATE(
+			    (0.05 * [Total Revenue]) + [Total Revenue],
+			    PREVIOUSMONTH('Calendar'[date])
+			    )
+		formatString: 0
+		lineageTag: 3469b962-5e27-4784-b778-4b679b9dd5b1
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
 	partition Measure = m
 		mode: import
 		source =
