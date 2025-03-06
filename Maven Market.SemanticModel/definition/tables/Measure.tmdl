@@ -19,7 +19,7 @@ table Measure
 			CALCULATE(
 			    COUNT(Transaction_Data[customer_id])
 			)
-		formatString: 0
+		formatString: #,0
 		lineageTag: b9b5a8a1-0cda-46aa-8672-12b5a16d1bbe
 
 	measure 'Total Returns' =
