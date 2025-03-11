@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Stores.store_country",
-              "nativeQueryRef": "store_country"
+              "nativeQueryRef": "store_country",
+              "active": true
             }
           ]
         }
