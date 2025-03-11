@@ -23,7 +23,7 @@ Maven Market is a Power BI dashboard designed to analyze sales, profit margins, 
    - Click "Refresh" in Power BI.  
 
 ## Dashboard Preview 🖼️  
-![Maven Market Dashboard](images/dashboard_preview.png)  
+![Maven Market Dashboard](Images/dashboard_preview.png)  
 
 ## Data Sources 📂  
 - **Maven Market Sales Data** (Excel / SQL)  
